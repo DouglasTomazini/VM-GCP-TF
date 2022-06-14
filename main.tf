@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "google" {
-  project = "delta-trees-352617"
+  project = "ID-from-your-project"
   region = "us-central1"
   zone = "us-central1-a"
 }
