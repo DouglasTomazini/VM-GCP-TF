@@ -6,24 +6,24 @@ terraform {
     }
   }
 }
-
+#--------------------------Dados de conexão com o projeto---------------------------------------------
 provider "google" {
   project = "ID-from-your-project"
   region = "us-central1"
   zone = "us-central1-a"
 }
-
+#--------------------------Criando a VM---------------------------------------------
 resource google_compute_instance "gcs1" {
   name = "vm-criada-pelo-tf"
-  machine_type = "n1-standard-1"
-  zone         = "us-central1-a"
+  machine_type = "n1-standard-1" #tipo de máquina
+  zone         = "us-central1-a" #zona do servidor
 
   allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
-      image = "centos-7"
-      size = "35" //tamanho de disco
+      image = "centos-7" #SO instalado
+      size = "35" #tamanho de disco
     }
     auto_delete = false
   }
@@ -31,7 +31,7 @@ resource google_compute_instance "gcs1" {
     network = "default"
 
     access_config {
-      // Ephemeral public IP
+      # Ephemeral public IP
     }
   }
 
@@ -40,9 +40,6 @@ resource google_compute_instance "gcs1" {
 
   }
 
-  //scheduling {
-  //  preemptible = true
-  //}
 
   lifecycle {
     ignore_changes = [
@@ -53,15 +50,14 @@ resource google_compute_instance "gcs1" {
 }
 
 
-resource "google_compute_disk" "disk-1" {
+resource "google_compute_disk" "disk-1" { #adicionando disco
   name = "disk-1"
   size = 15
   zone = "southamerica-east1-a"
   type = "pd-ssd"
 }
 
-//resource "google_compute_attached_disk" "adisk" {
-//  disk = google_compute_disk.disk-1.id 
-//  instance = google_compute_instance.gcs1.id
-  
-//}
+#resource "google_compute_attached_disk" "adisk" {  # fazendo o 'atach' do disco ao projeto
+#  disk = google_compute_disk.disk-1.id 
+##  instance = google_compute_instance.gcs1.id  
+#}
